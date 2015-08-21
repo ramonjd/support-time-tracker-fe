@@ -5,24 +5,25 @@ import Button from './Button.jsx';
 import SelectList from './SelectList.jsx';
 import Actions from '../actions/Actions.jsx';
 import Store from '../stores/Store.jsx';
+import devs from '../mock/developers.js';
 
 
 let { isPastDay, isSameDay } = require('../utils/date');
 let taskList = [
     {
-        name : 'A',
+        name : 'Support Shift',
         value : 'a'
     },
     {
-        name : 'B',
+        name : 'Active Monitoring',
         value : 'b'
     },
     {
-        name : 'C',
+        name : 'Callout',
         value : 'c'
     },
     {
-        name : 'D',
+        name : 'Time Charged',
         value : 'd'
     }
 ];
@@ -38,6 +39,29 @@ let getState = () => {
 };
 
 
+let getDevById = (id) => {
+    let dev = null;
+    devs.forEach((item, index)=>{
+        if (item.id.toString() == id.toString()) {
+            dev = item;
+            return false;
+        }
+    });
+    return dev;
+};
+
+
+let getTaskByVal = (val) => {
+    let t = null;
+    taskList.forEach((item, index)=>{
+        if (item.value.toString() == val.toString()) {
+            t = item;
+            return false;
+        }
+    });
+    return t;
+};
+
 class TimeEntry extends React.Component {
 
     constructor() {
@@ -52,7 +76,8 @@ class TimeEntry extends React.Component {
 
     componentDidMount() {
         this.setState({
-            developer: this.props.params.developerName
+            developer: getDevById(this.props.params.developerName),
+            developerName: getDevById(this.props.params.developerName).name
         });
         Store.addTimeEntryAddedListener(this.onAddTimeEntry)
     }
@@ -74,7 +99,7 @@ class TimeEntry extends React.Component {
 
     handleTaskChange(event) {
         this.setState({
-            selectedTask: event.target.value
+            selectedTask: getTaskByVal(event.target.value).name
         });
     }
 
@@ -85,6 +110,7 @@ class TimeEntry extends React.Component {
     }
 
     handleSubmit() {
+        window.localStorage[this.state.developer.id] = JSON.stringify(this.state);
         Actions.addSupportTimeEntry(this.state);
     }
 
@@ -100,7 +126,7 @@ class TimeEntry extends React.Component {
             <div className='TimeEntry'>
                 <div className='row'>
                     <div className='col-md-12'>
-                        <h1>{this.props.params.developerName}</h1>
+                        <h1>{this.state.developerName}</h1>
                     </div>
                 </div>
                 <div className='row'>
