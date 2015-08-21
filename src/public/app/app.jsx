@@ -2,6 +2,7 @@ import React from 'react';
 import Router from 'react-router';
 import Dashboard from './components/Dashboard.jsx';
 import TimeEntry from './components/TimeEntry.jsx';
+import Success from './components/Success.jsx';
 
 let { Route, DefaultRoute, RouteHandler, Link } = Router;
 
@@ -20,8 +21,6 @@ class App extends React.Component {
                             <ul className='nav nav-pills'>
                                 <li role='presentation' className='active'><Link className='btn btn-default' to='app'>Dashboard</Link>
                                 </li>
-                                <li role='presentation'><Link className='btn btn-default' to='timeentry'>Enter
-                                    Time</Link></li>
                             </ul>
                         </header>
                         <main className='SupportTracker'>
@@ -37,11 +36,14 @@ class App extends React.Component {
 
 let routes = (
     <Route name='app' path='/' handler={App}>
-        <Route name='timeentry' handler={TimeEntry}/>
+        <Route name='timeentry' path='/timeentry/:developerName' handler={TimeEntry}/>
+        <Route name='success' handler={Success}/>
         <DefaultRoute handler={Dashboard}/>
     </Route>
 );
 
-Router.run(routes, function (Handler) {
-    React.render(<Handler/>, document.querySelector('#content'));
+
+Router.run(routes, function (Handler, state) {
+    var params = state.params;
+    React.render(<Handler params={params}/>, document.querySelector('#content'));
 });

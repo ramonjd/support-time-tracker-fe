@@ -1,7 +1,7 @@
 import keyMirror from 'react/lib/keyMirror';
 
 let constants = keyMirror({
-    SELECT_DAY: null
+    ADD_TIME_ENTRY: null
 });
 
 export default constants;

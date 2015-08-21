@@ -1,12 +1,12 @@
-import AppDispatcher from '../dispatchers/Dispatcher.jsx';
+import Dispatcher from '../dispatchers/Dispatcher.jsx';
 import Constants from '../constants/Constants.jsx';
 
 let Actions = {
 
-    selectDay : function (selectedDate) {
+    addSupportTimeEntry : function (supportTimeEntry) {
         Dispatcher.dispatch({
-            actionType: Constants.SELECT_DAY,
-            date: selectedDate
+            actionType: Constants.ADD_TIME_ENTRY,
+            data: supportTimeEntry
         });
     } 
 
