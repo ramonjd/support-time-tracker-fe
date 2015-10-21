@@ -14,9 +14,9 @@ let Store  = assign({}, EventEmitter.prototype, {
     getDevelopers(){
 
         Request
-            .get('api/crons')
+            .get('http://localhost:8080/charles/time-entry/list')
             .end((err, res) => {
-                this.emitChange(GET_DEVELOPERS, res);
+                this.emitChange(GET_DEVELOPERS, JSON.parse(res.text));
             });
 
     },

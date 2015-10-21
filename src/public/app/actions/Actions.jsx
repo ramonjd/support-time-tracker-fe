@@ -8,7 +8,13 @@ let Actions = {
             actionType: Constants.ADD_TIME_ENTRY,
             data: supportTimeEntry
         });
-    } 
+    },
+
+getDevs : function () {
+    Dispatcher.dispatch({
+        actionType: Constants.GET_DEVS
+    });
+}
 
 };
 

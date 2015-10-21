@@ -14,11 +14,12 @@ class Dashboard extends React.Component {
         this.onGetDevs = this.onGetDevs.bind(this);
     }
     componentDidMount() {
-       // Store.addTimeEntryAddedListener(this.onGetDevs)
+      Actions.getDevs();
+      Store.addTimeEntryAddedListener(this.onGetDevs)
     }
 
     componentWillUnmount() {
-      //  Store.removeTimeEntryAddedListener(this.onGetDevs)
+       Store.removeTimeEntryAddedListener(this.onGetDevs)
     }
     onGetDevs(data) {
         this.setState({
